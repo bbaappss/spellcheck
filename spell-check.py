@@ -1,5 +1,6 @@
 import difflib
 import re
+import os
 
 def load_dictionary(dictionary_file):
     with open(dictionary_file, 'r') as file:
@@ -26,8 +27,18 @@ def spell_check(text_file, dictionary):
                     print("No suggestions found.")
                 print()
 
+def is_file_empty(file_path):
+    return os.stat(file_path).st_size == 0
+
 if __name__ == "__main__":
-    dictionary_file = "dictionary.txt"  
-    text_file = "text_to_check.txt"  # Your text file to check
-    dictionary = load_dictionary(dictionary_file)
-    spell_check(text_file, dictionary)
+    dictionary_file = "dictionary.txt"
+    text_file = "text_to_check.txt"
+
+    if os.path.exists(text_file):
+        if not is_file_empty(text_file):
+            dictionary = load_dictionary(dictionary_file)
+            spell_check(text_file, dictionary)
+        else:
+            print("Text file is empty. Exiting without spell-checking.")
+    else:
+        print("Text file does not exist.")
