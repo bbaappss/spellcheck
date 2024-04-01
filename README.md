@@ -9,4 +9,4 @@ Altering the text in the text_to_check.txt file and subsequently running the scr
 
 The code doesn't explicitly implement an algorithm. It combines text parsing, regular expressions, set operations, and string comparisons to achieve spell-checking functionality.
 
-I wanted to get as far as I could in the tasks listed, the next item I wanted to implement was proper noun checking via [NLTK]([url](https://www.nltk.org/)).
+I wanted to get as far as I could in the tasks listed, the next item I wanted to implement was proper noun checking via [NLTK]([(https://www.nltk.org/)]).
