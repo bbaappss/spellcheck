@@ -10,7 +10,7 @@ def spell_check(text_file, dictionary):
         lines = file.readlines()
 
     for line_num, line in enumerate(lines):
-        words = re.findall(r'\b\w+\b', line.lower())
+        words = re.findall(r'\b\w{2,}\b', line.lower())  # Adjusted regex to match words with 2 or more characters
         for word in words:
             if word not in dictionary:
                 suggestion = difflib.get_close_matches(word, dictionary, n=1)
