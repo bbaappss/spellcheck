@@ -10,13 +10,15 @@ def spell_check(text_file, dictionary):
         lines = file.readlines()
 
     for line_num, line in enumerate(lines):
-        words = re.findall(r'\b\w{2,}\b', line.lower())  # Adjusted regex to match words with 2 or more characters
-        for word in words:
+        words = re.findall(r'\b\w{2,}\b', line.lower())  # match words with at least 2 characters
+        for match in re.finditer(r'\b\w{2,}\b', line.lower()):
+            word = match.group()
+            col_num = match.start()  # Column number of the word
             if word not in dictionary:
                 suggestions = difflib.get_close_matches(word, dictionary, n=3)  # Get three suggestions
-                print(f"Misspelled word '{word}' at line {line_num + 1}: {line.strip()}")
+                print(f"Misspelled word '{word}' at line {line_num + 1}, column {col_num + 1}:\n \n{line.strip()}")
                 if suggestions:
-                    print("Suggestions:")
+                    print("\nSuggestions:")
                     for suggestion in suggestions:
                         print(f"- {suggestion}")
                 else:
