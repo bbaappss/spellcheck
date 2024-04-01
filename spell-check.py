@@ -16,7 +16,8 @@ def spell_check(text_file, dictionary):
             col_num = match.start()  # Column number of the word
             if word not in dictionary:
                 suggestions = difflib.get_close_matches(word, dictionary, n=3)  # Get three suggestions
-                print(f"Misspelled word '{word}' at line {line_num + 1}, column {col_num + 1}:\n \n{line.strip()}")
+                highlighted_line = line[:col_num] + '\033[1;31;40m' + word + '\033[0m' + line[col_num + len(word):]
+                print(f"Misspelled word '{word}' at line {line_num + 1}, column {col_num + 1}:\n{highlighted_line.strip()}")
                 if suggestions:
                     print("\nSuggestions:")
                     for suggestion in suggestions:
@@ -26,7 +27,7 @@ def spell_check(text_file, dictionary):
                 print()
 
 if __name__ == "__main__":
-    dictionary_file = "dictionary.txt"  # Your dictionary file
+    dictionary_file = "dictionary.txt"  
     text_file = "text_to_check.txt"  # Your text file to check
     dictionary = load_dictionary(dictionary_file)
     spell_check(text_file, dictionary)
